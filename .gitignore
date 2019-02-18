@@ -11,3 +11,4 @@ CTestTestfile.cmake
 _deps
 wasmer
 rust-build
+wasmer-c-api-example
