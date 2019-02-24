@@ -14,6 +14,7 @@ void print_str(wasmer_instance_context_t *ctx, int32_t ptr, int32_t len)
     printf("%.*s", mem_len, mem_bytes);
 }
 
+// Use the last_error API to retrieve error messages
 void print_wasmer_error()
 {
     int error_len = wasmer_last_error_length();
@@ -25,11 +26,14 @@ void print_wasmer_error()
 
 int main()
 {
+    // Create a new func to hold the parameter and signature
+    // of our `print_str` host function
     wasmer_value_tag params_sig[] = {WASM_I32, WASM_I32};
     wasmer_value_tag returns_sig[] = {};
     wasmer_func_t *func = wasmer_func_new(print_str, params_sig, 2, returns_sig, 0);
-    wasmer_import_t import;
 
+    // Create module and import names for our import
+    // represented in bytes for UTF-8 compatability
     char *module_name = "env";
     wasmer_byte_array module_name_bytes;
     module_name_bytes.bytes = module_name;
@@ -39,6 +43,8 @@ int main()
     import_name_bytes.bytes = import_name;
     import_name_bytes.bytes_len = strlen(import_name);
 
+    // Define an array containing our import
+    wasmer_import_t import;
     import.module_name = module_name_bytes;
     import.import_name = import_name_bytes;
     import.tag = WASM_FUNCTION;
@@ -54,6 +60,7 @@ int main()
     fread(bytes, 1, len, file);
     fclose(file);
 
+    // Creates a WebAssembly Instance from wasm bytes and imports
     wasmer_instance_t *instance = NULL;
     wasmer_result_t compile_result = wasmer_instantiate(&instance, bytes, len, imports, 1);
     printf("Compile result:  %d\n", compile_result);
@@ -63,6 +70,7 @@ int main()
     }
     assert(compile_result == WASMER_OK);
 
+    // Call the exported "hello_wasm" function of our instance
     wasmer_value_t params[] = {};
     wasmer_value_t results[] = {};
     wasmer_result_t call_result = wasmer_instance_call(instance, "hello_wasm", params, 0, results, 0);
@@ -70,6 +78,7 @@ int main()
     assert(call_result == WASMER_OK);
     assert(print_str_called);
 
+    // Use *_destroy methods to cleanup as specified in the header documentation
     printf("Destroy instance\n");
     wasmer_instance_destroy(instance);
 
