@@ -14,9 +14,17 @@ void print_str(wasmer_instance_context_t *ctx, int32_t ptr, int32_t len)
     printf("%.*s", mem_len, mem_bytes);
 }
 
+void print_wasmer_error()
+{
+    int error_len = wasmer_last_error_length();
+    printf("Error len: `%d`\n", error_len);
+    char *error_str = malloc(error_len);
+    wasmer_last_error_message(error_str, error_len);
+    printf("Error str: `%s`\n", error_str);
+}
+
 int main()
 {
-
     wasmer_value_tag params_sig[] = {WASM_I32, WASM_I32};
     wasmer_value_tag returns_sig[] = {};
     wasmer_func_t *func = wasmer_func_new(print_str, params_sig, 2, returns_sig, 0);
@@ -51,11 +59,7 @@ int main()
     printf("Compile result:  %d\n", compile_result);
     if (compile_result != WASMER_OK)
     {
-        int error_len = wasmer_last_error_length();
-        printf("Error len: `%d`\n", error_len);
-        char *error_str = malloc(error_len);
-        wasmer_last_error_message(error_str, error_len);
-        printf("Error str: `%s`\n", error_str);
+        print_wasmer_error();
     }
     assert(compile_result == WASMER_OK);
 
@@ -64,11 +68,10 @@ int main()
     wasmer_result_t call_result = wasmer_instance_call(instance, "hello_wasm", params, 0, results, 0);
     printf("Call result:  %d\n", call_result);
     assert(call_result == WASMER_OK);
-
     assert(print_str_called);
 
-    // printf("Destroy instance\n");
-    // wasmer_instance_destroy(instance);
+    printf("Destroy instance\n");
+    wasmer_instance_destroy(instance);
 
     return 0;
 }

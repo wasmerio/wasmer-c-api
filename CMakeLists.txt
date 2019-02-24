@@ -8,7 +8,7 @@ ExternalProject_Add(
         wasmer-runtime-c-api
         DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build
         GIT_REPOSITORY https://github.com/wasmerio/wasmer.git
-        GIT_TAG feature/c-api
+        GIT_TAG master
         CONFIGURE_COMMAND ""
         BUILD_COMMAND cargo build -p wasmer-runtime-c-api
         COMMAND cargo build -p wasmer-runtime-c-api
