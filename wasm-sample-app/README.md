@@ -1,7 +1,14 @@
 # Hello World
 
 ## Requirements
-- Rust target `wasm32-unknown-unknown` - install using `rustup target add wasm32-unknown-unknown`
+- Emscripten: https://emscripten.org/
 
 ## Building
-`cargo build --release`
+`emcc source.c  -Os -s SIDE_MODULE=1 -s EXPORTED_FUNCTIONS="['_hello_wasm']" -o target.wasm`
+
+## Version
+The `target.wasm` file was build with the following version:
+```
+emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 1.38.21
+clang version 6.0.1  (emscripten 1.38.21 : 1.38.21)
+```
