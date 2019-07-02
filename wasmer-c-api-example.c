@@ -118,7 +118,7 @@ int main()
     wasmer_value_t result_one;
     wasmer_value_t results[] = {result_one};
     wasmer_result_t call_result = wasmer_instance_call(instance, "_hello_wasm", params, 0, results, 1);
-    printf("Call result:  %d\n", call_result);
+    printf("\nCall result:  %d\n", call_result);
     assert(call_result == WASMER_OK);
     assert(print_str_called);
 
