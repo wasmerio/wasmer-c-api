@@ -17,18 +17,13 @@ ExternalProject_Add(
         LOG_BUILD ON)
 add_dependencies(wasmer-c-api-example wasmer-runtime-c-api)
 
-#find_library(
-#        WASMER_LIB NAMES libwasmer_runtime_c_api.dylib libwasmer_runtime_c_api.so libwasmer_runtime_c_api.dll
-#        PATHS ${CMAKE_SOURCE_DIR}/rust-build/src/wasmer-runtime-c-api/target/debug/
-#)
+find_library(
+        WASMER_LIB NAMES libwasmer_runtime_c_api.dylib libwasmer_runtime_c_api.so libwasmer_runtime_c_api.dll
+        PATHS ${CMAKE_SOURCE_DIR}/rust-build/src/wasmer-runtime-c-api/target/debug/
+)
 
-#if(NOT WASMER_LIB)
-#    message(FATAL_ERROR "wasmer library not found")
-#endif()
+if(NOT WASMER_LIB)
+    message(FATAL_ERROR "wasmer library not found")
+endif()
 
-#target_link_libraries(wasmer-c-api-example
-#                general ${WASMER_LIB})
-
-# TODO how to use find_library with ExternalProject
-target_link_libraries(wasmer-c-api-example
-        general "${CMAKE_SOURCE_DIR}/rust-build/src/wasmer-runtime-c-api/target/debug/libwasmer_runtime_c_api.dylib")
+target_link_libraries(wasmer-c-api-example general ${WASMER_LIB})
