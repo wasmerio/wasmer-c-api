@@ -36,37 +36,31 @@ int main()
     // Create module name for our imports
     // represented in bytes for UTF-8 compatability
     const char *module_name = "env";
-    wasmer_byte_array module_name_bytes;
-    module_name_bytes.bytes = (const uint8_t *) module_name;
-    module_name_bytes.bytes_len = strlen(module_name);
+    wasmer_byte_array module_name_bytes = { .bytes = (const uint8_t *) module_name,
+                                            .bytes_len = strlen(module_name) };
 
     // Define a function import
     const char *import_name = "_print_str";
-    wasmer_byte_array import_name_bytes;
-    import_name_bytes.bytes = (const uint8_t *) import_name;
-    import_name_bytes.bytes_len = strlen(import_name);
-    wasmer_import_t func_import;
-    func_import.module_name = module_name_bytes;
-    func_import.import_name = import_name_bytes;
-    func_import.tag = WASM_FUNCTION;
-    func_import.value.func = func;
+    wasmer_byte_array import_name_bytes = { .bytes = (const uint8_t *) import_name,
+                                            .bytes_len = strlen(import_name) };
+    wasmer_import_t func_import = { .module_name = module_name_bytes,
+                                    .import_name = import_name_bytes,
+                                    .tag = WASM_FUNCTION,
+                                    .value.func = func };
 
     // Define a memory import
     const char *import_memory_name = "memory";
-    wasmer_byte_array import_memory_name_bytes;
-    import_memory_name_bytes.bytes = (const uint8_t *) import_memory_name;
-    import_memory_name_bytes.bytes_len = strlen(import_memory_name);
-    wasmer_import_t memory_import;
-    memory_import.module_name = module_name_bytes;
-    memory_import.import_name = import_memory_name_bytes;
-    memory_import.tag = WASM_MEMORY;
+    wasmer_byte_array import_memory_name_bytes = { .bytes = (const uint8_t *) import_memory_name,
+                                                   .bytes_len = strlen(import_memory_name) };
+    wasmer_import_t memory_import = { .module_name = module_name_bytes,
+                                      .import_name = import_memory_name_bytes,
+                                      .tag = WASM_MEMORY };
     wasmer_memory_t *memory = NULL;
-    wasmer_limits_t descriptor;
-    descriptor.min = 256;
-    wasmer_limit_option_t max;
-    max.has_some = true;
-    max.some = 256;
-    descriptor.max = max;
+    wasmer_limit_option_t max = { .has_some = true,
+                                  .some = 256 };
+    wasmer_limits_t descriptor = { .min = 256,
+                                   .max = max };
+
     wasmer_result_t memory_result = wasmer_memory_new(&memory, descriptor);
     if (memory_result != WASMER_OK)
     {
@@ -76,16 +70,14 @@ int main()
 
     // Define a global import
     const char *import_global_name = "__memory_base";
-    wasmer_byte_array import_global_name_bytes;
-    import_global_name_bytes.bytes = (const uint8_t *) import_global_name;
-    import_global_name_bytes.bytes_len = strlen(import_global_name);
-    wasmer_import_t global_import;
-    global_import.module_name = module_name_bytes;
-    global_import.import_name = import_global_name_bytes;
-    global_import.tag = WASM_GLOBAL;
-    wasmer_value_t val;
-    val.tag = WASM_I32;
-    val.value.I32 = 1024;
+    wasmer_byte_array import_global_name_bytes = { .bytes = (const uint8_t *) import_global_name,
+                                                   .bytes_len = strlen(import_global_name) };
+    wasmer_import_t global_import = { .module_name = module_name_bytes,
+                                      .import_name = import_global_name_bytes,
+                                      .tag = WASM_GLOBAL };
+
+    wasmer_value_t val = { .tag = WASM_I32,
+                           .value.I32 = 1024 };
     wasmer_global_t *global = wasmer_global_new(val, false);
     global_import.value.global = global;
 
