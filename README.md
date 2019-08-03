@@ -1,6 +1,6 @@
 # C-API Embedder App Example
 
-This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime/) from C, based on the blogpost: 
+This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C, based on the blogpost: 
 
 
 See [`wasmer-c-api-example.c`](./wasmer-c-api-example.c) for the example implementation.
