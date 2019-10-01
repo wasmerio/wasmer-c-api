@@ -17,10 +17,7 @@ ExternalProject_Add(
         LOG_BUILD ON)
 add_dependencies(wasmer-c-api-example wasmer-runtime-c-api)
 
-find_library(
-        WASMER_LIB NAMES libwasmer_runtime_c_api.dylib libwasmer_runtime_c_api.so wasmer_runtime_c_api.dll
-        PATHS ${CMAKE_SOURCE_DIR}/rust-build/src/wasmer-runtime-c-api/target/debug/
-)
+set(WASMER_LIB "${CMAKE_SOURCE_DIR}/rust-build/src/wasmer-runtime-c-api/target/debug/libwasmer_runtime_c_api${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 if(NOT WASMER_LIB)
     message(FATAL_ERROR "wasmer library not found")
