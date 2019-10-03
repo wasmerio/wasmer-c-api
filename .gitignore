@@ -12,3 +12,4 @@ _deps
 wasmer
 rust-build
 wasmer-c-api-example
+wasmer-wasi-c-api-example
