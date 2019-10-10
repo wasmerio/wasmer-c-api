@@ -82,16 +82,21 @@ int main()
     global_import.value.global = global;
 
     // Get the WASI base imports
-    const char *arg1_val = "--help";
-    wasmer_byte_array arg = { .bytes = (const uint8_t *) arg1_val,
-                              .bytes_len = strlen(arg1_val) };
-
+    const char *arg1_val = "wasi-example-program-name";
+    const char *arg2_val = "--help";
+    wasmer_byte_array args[2] = { { .bytes = (const uint8_t *) arg1_val,
+                                   .bytes_len = strlen(arg1_val) },
+                                 { .bytes = (const uint8_t *) arg2_val,
+                                   .bytes_len = strlen(arg2_val) } };
+    const int num_args = (sizeof args) / (sizeof args[0]);
+    
     const char *env1_val = "COLOR_OUTPUT=1";
-    wasmer_byte_array env = { .bytes = (const uint8_t *) env1_val,
-                              .bytes_len = strlen(env1_val) };
+    wasmer_byte_array envs[1] = { { .bytes = (const uint8_t *) env1_val,
+                                .bytes_len = strlen(env1_val) } };
+    const int num_envs = (sizeof envs) / (sizeof envs[0]);
 
     wasmer_import_object_t *import_object =
-            wasmer_wasi_generate_import_object(&arg, 1, &env, 1, NULL, 0, NULL, 0);
+            wasmer_wasi_generate_import_object(args, num_args, envs, num_envs, NULL, 0, NULL, 0);
     // Define an array containing our imports
     wasmer_import_t extra_imports[] = {func_import, global_import, memory_import};
 
