@@ -15,6 +15,13 @@ void host_print(wasmer_instance_context_t *ctx, int32_t ptr, int32_t len)
     printf("PRINTING FROM THE HOST: \"%.*s\"\n", len, mem_bytes + ptr);
 }
 
+// helper function to print byte array to stdout
+void print_byte_array(wasmer_byte_array *arr) {
+        for (int i = 0; i < arr->bytes_len; ++i) {
+                putchar(arr->bytes[i]);
+        }
+}
+
 // Use the last_error API to retrieve error messages
 void print_wasmer_error()
 {
@@ -112,6 +119,28 @@ int main()
     fread(bytes, 1, len, file);
     fclose(file);
 
+    // iterate through and print out our imports
+    wasmer_import_object_iter_t *func_iter = wasmer_import_object_iterate_functions(import_object);
+
+    puts("Functions in import object:");
+    while ( !wasmer_import_object_iter_at_end(func_iter) ) {
+            wasmer_import_t import = { 0 };
+            wasmer_result_t result = wasmer_import_object_iter_next(func_iter, &import);
+            assert(result == WASMER_OK);
+
+            print_byte_array(&import.module_name);
+            putchar(' ');
+            print_byte_array(&import.import_name);
+            putchar('\n');
+
+            assert(import.tag == WASM_FUNCTION);
+            assert(import.value.func);
+            wasmer_import_object_imports_destroy(&import, 1);
+    }
+    wasmer_import_object_iter_destroy(func_iter);
+    func_iter = NULL;
+
+
     // Creates a WebAssembly Module from wasm bytes
     wasmer_module_t *module = NULL;
     wasmer_compile(&module, bytes, len);
@@ -132,7 +161,7 @@ int main()
     // This is necessary to use the WASI filesystem until WASI finishes support for
     // WASI Wasm modules as libraries
     wasmer_value_t params[] = { { .tag = WASM_I32, .value.I32 = 42 } };
-    wasmer_value_t result_one;
+    wasmer_value_t result_one = { 0 };
     wasmer_value_t results[] = {result_one};
     wasmer_result_t call_result = wasmer_instance_call(instance, "_start", params, 0, results, 1);
     printf("Call result:  %d (fn result %d %d)\n", call_result, results[0].tag, results[0].value.I32);
