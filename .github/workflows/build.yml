@@ -23,6 +23,6 @@ jobs:
         run: cmake .
       - name: cmake windows
         if: matrix.os == 'windows-latest'
-        run: cmake . -G "MinGW Makefiles"
+        run: cmake . -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
       - name: make
         run: make
