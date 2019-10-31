@@ -140,7 +140,6 @@ int main()
     wasmer_import_object_iter_destroy(func_iter);
     func_iter = NULL;
 
-
     // Creates a WebAssembly Module from wasm bytes
     wasmer_module_t *module = NULL;
     wasmer_compile(&module, bytes, len);
