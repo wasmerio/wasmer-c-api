@@ -14,6 +14,10 @@ jobs:
         uses: actions/checkout@v1
       - name: install rust
         uses: actions-rs/toolchain@v1.0.0
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
       - name: cmake
         run: cmake .
       - name: make
