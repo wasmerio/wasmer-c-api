@@ -1,0 +1,17 @@
+name: wasmer-c-api build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
