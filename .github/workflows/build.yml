@@ -19,6 +19,6 @@ jobs:
           toolchain: stable
           override: true
       - name: cmake
-        run: cmake .
+        run: cmake . -G "MinGW Makefiles"
       - name: make
         run: make
