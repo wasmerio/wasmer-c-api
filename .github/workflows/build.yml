@@ -1,0 +1,28 @@
+name: wasmer-c-api build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: install rust
+        uses: actions-rs/toolchain@v1.0.0
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: cmake
+        if: matrix.os != 'windows-latest'
+        run: cmake .
+      - name: cmake windows
+        if: matrix.os == 'windows-latest'
+        run: cmake . -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
+      - name: make
+        run: make
