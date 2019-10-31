@@ -1,5 +1,7 @@
 # C-API Embedder App Example
 
+[![Actions Status](https://github.com/wasmerio/wasmer-c-api/workflows/wasmer-c-api%20build/badge.svg)](https://github.com/wasmerio/wasmer/actions)
+
 This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C, based on the blogpost: 
 
 
