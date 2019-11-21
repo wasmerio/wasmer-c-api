@@ -111,7 +111,7 @@ int main()
     wasmer_import_object_extend(import_object, extra_imports, 3);
 
     // Read the wasm file bytes
-    FILE *file = fopen("wasm-wasi-sample-app/wasi_example.wasm", "r");
+    FILE *file = fopen("wasm-wasi-sample-app/program.wasm", "r");
     fseek(file, 0, SEEK_END);
     long len = ftell(file);
     uint8_t *bytes = malloc(len);
