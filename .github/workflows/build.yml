@@ -26,3 +26,8 @@ jobs:
         run: cmake . -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
       - name: make
         run: make
+      - name: run the examples (Unix)
+        if: matrix.os != 'windows-latest'
+        run: |
+          ./wasmer-c-api-example
+          ./wasmer-wasi-c-api-example
