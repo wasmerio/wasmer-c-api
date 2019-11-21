@@ -34,5 +34,5 @@ jobs:
       - name: run the examples (Windows)
         if: matrix.os == 'windows-latest'
         run: |
-          ./wasmer-c-api-example.exe
-          ./wasmer-wasi-c-api-example.exe
+          & wasmer-c-api-example.exe
+          & wasmer-wasi-c-api-example.exe
