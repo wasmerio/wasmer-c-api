@@ -26,3 +26,6 @@ jobs:
         run: cmake . -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
       - name: make
         run: make
+      - name: the examples
+        run:  ./wasmer-c-api-example
+              ./wasmer-wasi-c-api-example
