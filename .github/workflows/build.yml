@@ -27,5 +27,5 @@ jobs:
       - name: make
         run: make
       - name: the examples
-        run:  ./wasmer-c-api-example
+        run:  ./wasmer-c-api-example && \
               ./wasmer-wasi-c-api-example
