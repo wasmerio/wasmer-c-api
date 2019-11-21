@@ -5,9 +5,9 @@
 This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C, based on the blogpost: 
 
 
-See [`wasmer-c-api-example.c`](./wasmer-c-api-example.c) for the example implementation.
+See [`wasmer-c-api-example.c`](./wasmer-c-api-example.c) and [`wasmer-wasi-c-api-example.c`](./wasmer-wasi-c-api-example.c) for the example implementations.
 
-The `wasm-sample-app` directory contains an example C wasm app to run in the embedder app.
+The `wasm-sample-app` and `wasmer-wasi-c-api-example` directories contain example C wasm apps to run in the embedder app.
 
 ## Requirements
 - CMake
@@ -19,10 +19,14 @@ The `wasm-sample-app` directory contains an example C wasm app to run in the emb
 # Building the wasm-sample-app
 cd wasm-sample-app && emcc source.c  -Os -s SIDE_MODULE=1 -s EXPORTED_FUNCTIONS="['_hello_wasm']" -o target.wasm
 
+# Building the wasm-wasi-sample-app
+cd wasmer-wasi-c-api-example && wasicc program.c -Oz -o program.wasm -Wl,--allow-undefined -Wl,--export-all
+
 # Build the embedder api
 cmake .
 make
 
-# Run the executable
+# Run the executables
 ./wasmer-c-api-example
+./wasmer-wasi-c-api-example
 ```
