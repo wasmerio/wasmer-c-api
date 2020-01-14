@@ -2,8 +2,9 @@
 
 [![Actions Status](https://github.com/wasmerio/wasmer-c-api/workflows/wasmer-c-api%20build/badge.svg)](https://github.com/wasmerio/wasmer-c-api/actions)
 
-This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C, based on the blogpost: 
+This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C.
 
+You can also check the **C API documentation** to see how to use it: https://wasmerio.github.io/wasmer/c/runtime-c-api/
 
 See [`wasmer-c-api-example.c`](./wasmer-c-api-example.c) and [`wasmer-wasi-c-api-example.c`](./wasmer-wasi-c-api-example.c) for the example implementations.
 
