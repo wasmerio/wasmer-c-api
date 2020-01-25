@@ -4,7 +4,7 @@
 
 This repo showcases how to use the [wasmer-runtime-c-api](https://crates.io/crates/wasmer-runtime-c-api/) from C.
 
-You can also check the **C API documentation** to see how to use it: https://wasmerio.github.io/wasmer/c/runtime-c-api/
+The documentation containing installation instructions, and additional examples can be found at the [Wasmer C/C++ Integration Documentation](https://docs.wasmer.io/runtime/c-integration/runtime-c-integration-installation).
 
 See [`wasmer-c-api-example.c`](./wasmer-c-api-example.c) and [`wasmer-wasi-c-api-example.c`](./wasmer-wasi-c-api-example.c) for the example implementations.
 
@@ -31,3 +31,7 @@ make
 ./wasmer-c-api-example
 ./wasmer-wasi-c-api-example
 ```
+
+## Reference API Documentation
+
+The Reference API for the Wasmer C API can be found [here](https://wasmerio.github.io/wasmer/c/runtime-c-api/).
