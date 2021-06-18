@@ -1,3 +1,7 @@
+**Note: This repository is outdated and archived. It showcased the deprecated Wasmer C API. The new C API lands in [the Wasmer repository](https://github.com/wasmerio/wasmer/tree/master/lib/c-api) with [its examples](https://github.com/wasmerio/wasmer/tree/master/lib/c-api/examples) and [its online documentation](https://wasmerio.github.io/wasmer/crates/wasmer_c_api/index.html).**
+
+<hr />
+
 # C-API Embedder App Example
 
 [![Actions Status](https://github.com/wasmerio/wasmer-c-api/workflows/wasmer-c-api%20build/badge.svg)](https://github.com/wasmerio/wasmer-c-api/actions)
